@@ -12,7 +12,7 @@ description = "Загрузчик музыки с сервиса Яндекс.М
 requires-python = ">=3.9"
 readme = "README.md"
 dependencies = [
-    "yandex-music",
+    "yandex-music @ git+https://github.com/MarshalX/yandex-music-api.git",
     "mutagen",
     "StrEnum"
 ]
