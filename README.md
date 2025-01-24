@@ -37,7 +37,17 @@
 - Поддержка паттерна для пути сохранения музыки
 
 ## Установка
-Для запуска скрипта требуется Python 3.9+
+
+### Docker
+```
+docker build -t ymd .
+docker run --rm ymd
+```
+
+По умолчанию скрипт сохраняет треки в `/home/downloads` внутри контейнера. Монтируйте директорию хоста по этому пути (см. примеры ниже).
+
+### Для непосредственного запуска скрипта
+Потребуется Python 3.9+
 ```
 pip install git+https://github.com/llistochek/yandex-music-downloader
 yandex-music-downloader --help
@@ -47,21 +57,55 @@ yandex-music-downloader --help
 https://yandex-music.readthedocs.io/en/main/token.html
 
 ## Примеры использования
-Во всех примерах замените `<Токен>` на ваш токен.
+Во всех примерах замените `<Токен>` на ваш токен. В примерах для Docker подразумеваем, что образ уже собран с тегом `ymd`, а треки будут сохраняться в `~/music/` хоста.
 
 ### Скачать все треки [Arctic Monkeys](https://music.yandex.ru/artist/208167) в наилучшем качестве
 ```
-yandex-music-downloader --token "<Токен>" --quality 2 --url "https://music.yandex.ru/artist/208167"
+yandex-music-downloader \
+  --token "<Токен>" \
+  --quality 2 \
+  --url "https://music.yandex.ru/artist/208167"
+```
+
+**Docker**:
+```
+docker run --rm  -v ~/music/:/home/downloads \
+  --token "<Токен>" \
+  --quality 2 \
+  --url "https://music.yandex.ru/artist/208167"
 ```
 
 ### Скачать альбом [Nevermind](https://music.yandex.ru/album/294912) в высоком качестве, загружая тексты песен в формате LRC (с временными метками)
 ```
-yandex-music-downloader --token "<Токен>" --quality 1 --lyrics-format lrc --url "https://music.yandex.ru/album/294912"
+yandex-music-downloader \
+  --token "<Токен>" \
+  --quality 1 \
+  --lyrics-format lrc \
+  --url "https://music.yandex.ru/album/294912"
 ```
+
+**Docker**:
+```
+docker run --rm  -v ~/music/:/home/downloads \
+  --token "<Токен>" \
+  --quality 1 \
+  --lyrics-format lrc \
+  --url "https://music.yandex.ru/album/294912"
+```
+
 
 ### Скачать трек [Seven Nation Army](https://music.yandex.ru/album/11644078/track/6705392)
 ```
-yandex-music-downloader --token "<Токен>" --url "https://music.yandex.ru/album/11644078/track/6705392"
+yandex-music-downloader \
+  --token "<Токен>" \
+  --url "https://music.yandex.ru/album/11644078/track/6705392"
+```
+
+**Docker**:
+```
+docker run --rm  -v ~/music/:/home/downloads \
+  --token "<Токен>" \
+  --url "https://music.yandex.ru/album/11644078/track/6705392"
 ```
 
 ## Использование
